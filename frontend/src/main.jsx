@@ -1,18 +1,15 @@
-// src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
-// Contexts
+
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 
-// Components
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 
-// Pages
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -28,14 +25,12 @@ import Troubleshooting from "./pages/Troubleshooting";
 import Support from "./pages/Support";
 import MealPlans from "./pages/MealPlans";
 
-// Admin
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ProductsManagement from "./pages/admin/ProductsManagement";
 import CategoriesManagement from "./pages/admin/CategoriesManagement";
 import OrdersManagement from "./pages/admin/OrdersManagement";
 import AdminOrderDetail from "./pages/admin/OrderDetail";
 
-// Layout Components
 const PublicLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col">
     <Header />
@@ -56,7 +51,6 @@ const AppContent = () => {
   return (
     <>
       <Routes>
-        {/* Public Routes with Header & Footer */}
         <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
         <Route path="/products" element={<PublicLayout><Products /></PublicLayout>} />
         <Route path="/products/category/:categoryId" element={<PublicLayout><Products /></PublicLayout>} />
@@ -73,7 +67,6 @@ const AppContent = () => {
         <Route path="/support" element={<PublicLayout><Support /></PublicLayout>} />
         <Route path="/meal" element={<PublicLayout><MealPlans /></PublicLayout>} />
 
-        {/* Admin Routes - No Header/Footer */}
         <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
         <Route path="/admin/products" element={<AdminLayout><ProductsManagement /></AdminLayout>} />
         <Route path="/admin/categories" element={<AdminLayout><CategoriesManagement /></AdminLayout>} />

@@ -11,8 +11,6 @@ const Login = () => {
   const [searchParams] = useSearchParams();
   const returnUrl = searchParams.get('returnUrl') || '/';
 
-  // Remove the useEffect that automatically redirects
-  // We'll handle redirect manually after login
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +19,6 @@ const Login = () => {
     const result = await login({ email, password });
     
     if (result.success && result.user) {
-      // Handle redirect immediately after successful login
       if (result.user.role === 'admin') {
         navigate('/admin');
       } else {

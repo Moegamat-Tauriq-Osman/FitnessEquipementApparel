@@ -37,14 +37,12 @@ export const AuthProvider = ({ children }) => {
       const userData = response.data;
       setUser(userData);
       
-      // Determine success message based on role
       const message = userData.role === 'admin' 
         ? 'Welcome, Admin!' 
         : 'Login successful!';
       
       toast.success(message);
       
-      // Return the user data immediately
       return { 
         success: true, 
         user: userData 

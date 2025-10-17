@@ -21,14 +21,12 @@ const Products = () => {
       try {
         const [categoriesResponse, productsResponse] = await Promise.all([
           categoriesAPI.getAll(),
-          // Always fetch all products initially for client-side filtering
           productsAPI.getAll()
         ]);
 
         setCategories(categoriesResponse.data);
         setProducts(productsResponse.data);
         
-        // Set selected category from URL params if provided
         if (categoryId) {
           setSelectedCategory(categoryId);
         }
@@ -40,13 +38,11 @@ const Products = () => {
     };
 
     fetchData();
-  }, [categoryId]); // Re-fetch when categoryId in URL changes
+  }, [categoryId]); 
 
-  // Filter and sort products based on selected category and sort option
   const filteredAndSortedProducts = React.useMemo(() => {
     let filtered = products;
 
-    // Filter by selected category
     if (selectedCategory) {
       filtered = filtered.filter(product => product.categoryId === selectedCategory);
     }
@@ -54,7 +50,6 @@ const Products = () => {
     filtered = filtered.filter(product =>
       product.price >= priceRange[0] && product.price <= priceRange[1]
     );
-    // Apply sorting
     return filtered.sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
@@ -62,12 +57,11 @@ const Products = () => {
         case 'price-high':
           return b.price - a.price;
         default:
-          return a.price - b.price; // Default to price low to high
+          return a.price - b.price; 
       }
     });
   }, [products, selectedCategory, sortBy, priceRange]);
 
-  // Update selected category when URL param changes
   useEffect(() => {
     if (categoryId) {
       setSelectedCategory(categoryId);
@@ -78,7 +72,6 @@ const Products = () => {
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
-    // Optionally update URL without page reload
     if (categoryId) {
       window.history.pushState({}, '', `/products/category/${categoryId}`);
     } else {
@@ -86,7 +79,6 @@ const Products = () => {
     }
   };
 
-  // Function to handle when a product is added to cart
   const handleAddToCart = (product) => {
     toast.success(`${product.title} added to cart!`, {
       duration: 3000,
@@ -116,7 +108,6 @@ const Products = () => {
           )}
         </nav>
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
           <div className="lg:w-1/4">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
               <h3 className="font-bold text-lg mb-4">Categories</h3>
@@ -185,7 +176,6 @@ const Products = () => {
             </div>
           </div>
 
-          {/* Products Grid */}
           <div className="lg:w-3/4">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-3xl font-bold">

@@ -7,7 +7,6 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
-
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,6 @@ const SearchResults = () => {
     fetchProducts();
   }, []);
 
-  // Filter products based on search query and filters
   useEffect(() => {
     if (!products.length) return;
 
@@ -39,17 +37,14 @@ const SearchResults = () => {
       product.description.toLowerCase().includes(query.toLowerCase())
     );
 
-    // Apply price filter
     filtered = filtered.filter(product =>
       product.price >= priceRange[0] && product.price <= priceRange[1]
     );
 
-    // Apply stock filter
     if (inStockOnly) {
       filtered = filtered.filter(product => product.stock > 0);
     }
 
-    // Apply sorting
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
@@ -60,7 +55,6 @@ const SearchResults = () => {
           return a.title.localeCompare(b.title);
         case 'relevance':
         default:
-          // Simple relevance scoring based on title match
           const aTitleMatch = a.title.toLowerCase().includes(query.toLowerCase());
           const bTitleMatch = b.title.toLowerCase().includes(query.toLowerCase());
           if (aTitleMatch && !bTitleMatch) return -1;
@@ -77,7 +71,6 @@ const SearchResults = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
-        {/* Search Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">
             Search Results for "{query}"
@@ -89,7 +82,6 @@ const SearchResults = () => {
 
         
 
-          {/* Results Grid */}
           <div className="lg:w-3/4">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12">

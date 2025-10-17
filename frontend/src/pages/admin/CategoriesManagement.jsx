@@ -1,4 +1,3 @@
-// src/pages/admin/CategoriesManagement.js
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { categoriesAPI } from '../../services/api';
@@ -91,7 +90,6 @@ const CategoriesManagement = () => {
         </button>
       </div>
 
-      {/* Category Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
@@ -132,7 +130,6 @@ const CategoriesManagement = () => {
         </div>
       )}
 
-      {/* Categories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
           <div key={category.categoryId} className="bg-white rounded-lg shadow-md p-6">

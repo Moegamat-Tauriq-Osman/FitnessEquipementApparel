@@ -7,7 +7,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
     return config;
@@ -17,11 +16,9 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Only redirect to login for specific protected routes
     const protectedRoutes = ['/orders', '/checkout'];
     const currentPath = window.location.pathname;
     
@@ -43,7 +40,6 @@ export const productsAPI = {
   getAll: () => api.get('/products'),
   getById: (id) => api.get(`/products/${id}`),
   getByCategory: (categoryId) => api.get(`/products/category/${categoryId}`),
-  // ADD THESE MISSING METHODS:
   create: (productData) => api.post('/products', productData),
   update: (id, productData) => api.put(`/products/${id}`, productData),
   delete: (id) => api.delete(`/products/${id}`),
@@ -72,9 +68,8 @@ export const ordersAPI = {
   getUserOrders: () => api.get('/my'),
   getById: (orderId) => api.get(`/${orderId}`),
   updateStatus: (orderId, statusData) => api.put(`/${orderId}/status`, statusData),
-    cancelOrder: (orderId) => api.delete(`/${orderId}/cancel`), // Add this
+  cancelOrder: (orderId) => api.delete(`/${orderId}/cancel`), 
 
-  // Admin endpoints
   getAllOrders: () => api.get('/admin/all'),
   getOrderStats: () => api.get('/admin/stats'),
 };

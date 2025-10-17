@@ -78,7 +78,6 @@ const updateProduct = async (req, res) => {
     const { productId } = req.params;
     const productData = mapProductFields(req.body);
     
-    // Use productId instead of id
     await updateRecord("products", productData, { column: "productId", value: productId });
     res.status(200).json({ message: "Product updated successfully" });
   } catch (err) {
@@ -90,7 +89,6 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { productId } = req.params;
-    // Use productId instead of id
     await deleteRecord("products", "productId", productId);
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (err) {

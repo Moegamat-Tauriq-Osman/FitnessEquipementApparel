@@ -1,4 +1,3 @@
-// src/pages/Troubleshooting.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -144,7 +143,6 @@ const quickFixes = [
   </div>
 </div>
 
-        {/* Common Issues Section */}
         <div className="space-y-8">
           {commonIssues.map((category, categoryIndex) => (
             <div key={categoryIndex} className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -172,7 +170,6 @@ const quickFixes = [
           ))}
         </div>
 
-        {/* Contact Support Section */}
         <div className="mt-12 bg-white rounded-lg shadow-md p-8 text-center">
           <div className=" flex items-center justify-center mx-auto mb-6">
             

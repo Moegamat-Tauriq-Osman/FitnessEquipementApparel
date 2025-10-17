@@ -32,14 +32,12 @@ const Categories = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
-        {/* Breadcrumb */}
         <nav className="mb-8">
           <Link to="/" className="text-blue-600 hover:text-blue-800">Home</Link>
           <span className="mx-2">/</span>
           <span className="text-gray-500">Categories</span>
         </nav>
 
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">All Categories</h1>
           <p className="text-gray-600">
@@ -47,7 +45,6 @@ const Categories = () => {
           </p>
         </div>
 
-        {/* Categories Grid */}
         {categories.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No categories found.</p>

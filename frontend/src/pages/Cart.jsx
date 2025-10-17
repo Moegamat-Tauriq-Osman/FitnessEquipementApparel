@@ -9,18 +9,15 @@ const Cart = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  // Constants for fees
   const SHIPPING_FEE = 100.00;
-  const TAX_RATE = 0.1; // 10%
+  const TAX_RATE = 0.1; 
 
-  // Calculate totals
   const subtotal = getCartTotal();
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax + SHIPPING_FEE;
 
   const handleCheckout = () => {
     if (!isAuthenticated) {
-      // Redirect to login with return URL
       navigate('/login?returnUrl=/checkout');
     } else {
       navigate('/checkout');
@@ -56,7 +53,6 @@ const Cart = () => {
         </nav>
 
         <div className="lg:flex gap-8">
-          {/* Cart Items */}
           <div className="lg:w-2/3">
             <div className="bg-white rounded-lg shadow-md">
               {cart.map((item) => (
@@ -80,7 +76,6 @@ const Cart = () => {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:w-1/3 mt-8 lg:mt-0">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
               <h2 className="text-xl font-bold mb-4">Order Summary</h2>

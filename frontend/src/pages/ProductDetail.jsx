@@ -29,7 +29,6 @@ const ProductDetail = () => {
   const handleAddToCart = async () => {
     const result = await addToCart(product, quantity);
     if (result.success) {
-      // Show success message
       alert('Product added to cart!');
     }
   };
@@ -40,7 +39,6 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
-        {/* Breadcrumb */}
         <nav className="mb-8">
           <Link to="/" className="text-blue-600 hover:text-blue-800">Home</Link>
           <span className="mx-2">/</span>
@@ -51,7 +49,6 @@ const ProductDetail = () => {
 
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="md:flex">
-            {/* Product Image */}
             <div className="md:w-1/2">
               <img
                 src={product.image_url || '/api/placeholder/600/400'}
@@ -60,7 +57,6 @@ const ProductDetail = () => {
               />
             </div>
 
-            {/* Product Info */}
             <div className="md:w-1/2 p-8">
               <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
               <p className="text-gray-600 mb-6">{product.description}</p>

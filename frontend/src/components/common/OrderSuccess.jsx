@@ -5,16 +5,13 @@ import { useCart } from '../../context/CartContext';
 const OrderSuccess = ({ order }) => {
   const { clearCart } = useCart();
 
-  // Clear cart when success page loads
-  React.useEffect(() => {
-    clearCart();
-  }, [clearCart]);
+  React.useEffect(() => {clearCart();}, [clearCart]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {/* Success Header */}
+
           <div className="bg-green-50 px-6 py-8 text-center border-b">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,7 +24,6 @@ const OrderSuccess = ({ order }) => {
             </p>
           </div>
 
-          {/* Order Summary */}
           <div className="p-6">
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
               <h2 className="text-xl font-bold mb-4 text-center">Order Details</h2>
@@ -60,7 +56,6 @@ const OrderSuccess = ({ order }) => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/products"

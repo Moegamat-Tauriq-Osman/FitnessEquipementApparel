@@ -1,4 +1,3 @@
-// src/pages/OrderDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ordersAPI } from '../services/api';
@@ -73,7 +72,6 @@ const OrderDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Breadcrumb */}
         <nav className="mb-8">
           <Link to="/" className="text-blue-600 hover:text-blue-800">Home</Link>
           <span className="mx-2">/</span>
@@ -83,9 +81,7 @@ const OrderDetail = () => {
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Order Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Order Header */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex justify-between items-start">
                 <div>
@@ -102,7 +98,6 @@ const OrderDetail = () => {
                 </div>
               </div>
 
-              {/* Cancel Order Button */}
               {canCancelOrder() && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
                   <button
@@ -144,7 +139,6 @@ const OrderDetail = () => {
               )}
             </div>
 
-            {/* Order Items */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold mb-4">Order Items</h2>
               <div className="space-y-4">
@@ -168,7 +162,6 @@ const OrderDetail = () => {
               </div>
             </div>
 
-            {/* Shipping Information */}
             {order.shippingAddress && (
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-bold mb-4">Shipping Information</h2>
@@ -210,9 +203,7 @@ const OrderDetail = () => {
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-6">
-            {/* Order Summary */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold mb-4">Order Summary</h2>
               <div className="space-y-3">
@@ -231,7 +222,6 @@ const OrderDetail = () => {
               </div>
             </div>
 
-            {/* Order Information */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold mb-4">Order Information</h2>
               <div className="space-y-3">
@@ -256,7 +246,6 @@ const OrderDetail = () => {
               </div>
             </div>
 
-            {/* Back to Orders */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <Link
                 to="/orders"

@@ -1,4 +1,3 @@
-// src/pages/admin/ProductsManagement.js
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { productsAPI, categoriesAPI } from '../../services/api';
@@ -60,7 +59,6 @@ const ProductsManagement = () => {
       filtered = filtered.filter(product => product.categoryId === selectedCategory);
     }
 
-    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -167,7 +165,6 @@ const ProductsManagement = () => {
         
       </div>
 
-      {/* Filters */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -202,7 +199,6 @@ const ProductsManagement = () => {
         </div>
       </div>
 
-      {/* Product Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -315,9 +311,7 @@ const ProductsManagement = () => {
         </div>
       )}
 
-      {/* Category-based Product Display */}
       {selectedCategory === 'all' ? (
-        // Show all categories with their products
         <div className="space-y-6">
           {categories.map(category => {
             const categoryProducts = getProductsByCategory(category.categoryId);
@@ -403,7 +397,6 @@ const ProductsManagement = () => {
           })}
         </div>
       ) : (
-        // Show filtered products for selected category
         <div className="bg-white rounded-lg shadow-md">
           <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             <div>

@@ -1,4 +1,3 @@
-// Update your AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -27,8 +26,8 @@ const AdminDashboard = () => {
       const [productsRes, categoriesRes, ordersStatsRes, allOrdersRes] = await Promise.all([
         productsAPI.getAll(),
         categoriesAPI.getAll(),
-        ordersAPI.getOrderStats(), // New admin endpoint
-        ordersAPI.getAllOrders()    // New admin endpoint
+        ordersAPI.getOrderStats(),
+        ordersAPI.getAllOrders()    
       ]);
 
       setStats({
@@ -41,7 +40,6 @@ const AdminDashboard = () => {
         totalRevenue: ordersStatsRes.data.totalRevenue
       });
 
-      // Get 5 most recent orders
       const sortedOrders = allOrdersRes.data
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, 5);
@@ -136,7 +134,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Additional Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
@@ -169,7 +166,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Recent Orders */}
       <div className="bg-white rounded-lg shadow-md">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-800">Recent Orders</h2>

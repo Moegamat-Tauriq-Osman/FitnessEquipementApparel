@@ -1,4 +1,3 @@
-// src/pages/FitnessHub.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -16,7 +15,6 @@ const FitnessHub = () => {
     });
     const [activeTab, setActiveTab] = useState('meals');
 
-    // Fetch multiple meals from different categories
     useEffect(() => {
         const fetchMeals = async () => {
             try {
@@ -26,7 +24,6 @@ const FitnessHub = () => {
                 for (const category of categories) {
                     const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
                     if (res.data.meals) {
-                        // Get details for first 2 meals in each category
                         const mealDetails = await Promise.all(
                             res.data.meals.slice(0, 2).map(meal =>
                                 axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
@@ -50,11 +47,10 @@ const FitnessHub = () => {
         fetchMeals();
     }, []);
 
-    // Fetch exercises from multiple categories
     useEffect(() => {
         const fetchExercises = async () => {
             try {
-                const categories = [8, 9, 10, 11, 12, 13]; // Different exercise categories
+                const categories = [8, 9, 10, 11, 12, 13];
                 const allExercises = [];
 
                 for (const category of categories) {
@@ -66,7 +62,6 @@ const FitnessHub = () => {
                 setExercises(allExercises.slice(0, 15));
             } catch (err) {
                 console.error('Error fetching exercises:', err);
-                // Fallback exercises if API fails
                 setExercises(getFallbackExercises());
             } finally {
                 setLoading(prev => ({ ...prev, exercises: false }));
@@ -76,7 +71,6 @@ const FitnessHub = () => {
         fetchExercises();
     }, []);
 
-    // Generate workout routines
     useEffect(() => {
         const routines = [
             {
@@ -168,7 +162,6 @@ const FitnessHub = () => {
         setLoading(prev => ({ ...prev, workouts: false }));
     }, []);
 
-    // Generate comprehensive fitness tips
     useEffect(() => {
         const tips = [
             "Stay hydrated - drink at least 8-10 glasses of water daily, especially before and after workouts.",
@@ -266,7 +259,6 @@ const FitnessHub = () => {
     return (
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
-                {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-5xl font-bold text-gray-800 mb-4"> Fitness Resources</h1>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -274,7 +266,6 @@ const FitnessHub = () => {
                     </p>
                 </div>
 
-                {/* Navigation Tabs */}
                 <div className="flex flex-wrap justify-center mb-8 border-b border-gray-200">
                     {['meals', 'workouts', 'exercises', 'tips'].map((tab) => (
                         <button
@@ -292,9 +283,7 @@ const FitnessHub = () => {
                     ))}
                 </div>
 
-                {/* Content Sections */}
                 <div className="space-y-12">
-                    {/* Healthy Meals Section */}
                     {activeTab === 'meals' && (
                         <div>
                             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center"> Healthy Meal Plans</h2>
@@ -344,7 +333,6 @@ const FitnessHub = () => {
                         </div>
                     )}
 
-                    {/* Workout Routines Section */}
                     {activeTab === 'workouts' && (
                         <div>
                             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Workout Routines</h2>
@@ -382,7 +370,6 @@ const FitnessHub = () => {
                         </div>
                     )}
 
-                    {/* Exercises Section */}
                     {activeTab === 'exercises' && (
                         <div>
                             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center"> Exercise Library</h2>
@@ -413,7 +400,6 @@ const FitnessHub = () => {
                         </div>
                     )}
 
-                    {/* Fitness Tips Section */}
                     {activeTab === 'tips' && (
                         <div>
                             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Fitness & Health Tips</h2>

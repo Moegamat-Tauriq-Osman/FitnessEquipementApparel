@@ -1,4 +1,3 @@
-// src/pages/admin/OrderDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -84,7 +83,6 @@ const OrderDetail = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Order Items */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4">Order Items</h2>
@@ -116,9 +114,7 @@ const OrderDetail = () => {
           </div>
         </div>
 
-        {/* Order Information */}
         <div className="space-y-6">
-          {/* Customer Information */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4">Customer Information</h2>
             <div className="space-y-3">
@@ -141,7 +137,6 @@ const OrderDetail = () => {
             </div>
           </div>
 
-          {/* Shipping Information */}
           {order.shippingAddress && (
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
@@ -176,7 +171,6 @@ const OrderDetail = () => {
             </div>
           )}
 
-          {/* Order Information */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4">Order Information</h2>
             <div className="space-y-2">

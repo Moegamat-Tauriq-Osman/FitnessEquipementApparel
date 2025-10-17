@@ -1,4 +1,3 @@
-// src/pages/ContactSupport.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +16,6 @@ const ContactSupport = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* General Contact Card */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -76,7 +74,6 @@ const ContactSupport = () => {
            
           </div>
 
-          {/* IT Support Card */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -135,9 +132,6 @@ const ContactSupport = () => {
           </div>
         </div>
 
-       
-
-        {/* Helpful Resources */}
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Helpful Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

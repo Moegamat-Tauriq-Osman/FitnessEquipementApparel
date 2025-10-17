@@ -3,7 +3,6 @@ const router = express.Router();
 const { register, login, logout } = require("../controllers/authController");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
-// Add this route to get current user
 router.get("/me", authMiddleware, (req, res) => {
   if (req.user) {
     res.status(200).json({

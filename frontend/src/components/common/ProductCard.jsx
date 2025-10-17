@@ -13,7 +13,6 @@ const ProductCard = ({ product, onAddToCart }) => {
     const result = await addToCart(product, 1);
     
     if (result.success) {
-      // Show success notification
       toast.success(`${product.title} added to cart!`, {
         duration: 3000,
         position: 'bottom-right',
@@ -30,16 +29,12 @@ const ProductCard = ({ product, onAddToCart }) => {
       }
       
       if (result.error) {
-        // Show warning about fallback
         console.warn(result.error);
       }
-
-      // Call the parent's onAddToCart callback if provided
       if (onAddToCart) {
         onAddToCart(product);
       }
     } else {
-      // Show error notification
       toast.error(`Failed to add ${product.title} to cart`, {
         duration: 4000,
         position: 'bottom-right',

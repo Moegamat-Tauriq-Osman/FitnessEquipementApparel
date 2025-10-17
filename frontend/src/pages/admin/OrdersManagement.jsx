@@ -1,4 +1,3 @@
-// src/pages/admin/OrdersManagement.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -18,14 +17,12 @@ const OrdersManagement = () => {
 
  const fetchOrders = async () => {
   try {
-    // Use the admin endpoint instead of getUserOrders
     const response = await ordersAPI.getAllOrders();
     setOrders(response.data);
   } catch (error) {
     console.error('Failed to fetch orders:', error);
     toast.error('Failed to fetch orders');
     
-    // Fallback to user orders if admin endpoint fails
     try {
       const userOrdersResponse = await ordersAPI.getUserOrders();
       setOrders(userOrdersResponse.data);
@@ -42,7 +39,6 @@ const OrdersManagement = () => {
       await ordersAPI.updateStatus(orderId, { status: newStatus });
       toast.success('Order status updated ');
       
-      // Update local state
       setOrders(orders.map(order => 
         order.orderId === orderId ? { ...order, status: newStatus } : order
       ));
@@ -71,7 +67,6 @@ const OrdersManagement = () => {
     ));
   };
 
-  // Filter orders based on status and search term
   const filteredOrders = orders.filter(order => {
     const matchesFilter = filter === 'all' || order.status === filter;
     const matchesSearch = order.orderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -97,7 +92,6 @@ const OrdersManagement = () => {
         <h1 className="text-3xl font-bold text-gray-800">Order Management</h1>
       </div>
 
-      {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         <div className="bg-white p-4 rounded-lg shadow-md border-l-4 border-blue-500">
           <div className="flex items-center justify-between">
@@ -149,7 +143,6 @@ const OrdersManagement = () => {
         </div>
       </div>
 
-      {/* Revenue Card */}
       <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-lg shadow-md mb-6">
         <div className="flex items-center justify-between text-white">
           <div>
@@ -159,7 +152,6 @@ const OrdersManagement = () => {
         </div>
       </div>
 
-      {/* Filters and Search */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -200,7 +192,6 @@ const OrdersManagement = () => {
         </div>
       </div>
 
-      {/* Orders Table */}
       <div className="bg-white rounded-lg shadow-md">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-800">
@@ -306,7 +297,6 @@ const OrdersManagement = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className="mt-6 flex justify-between items-center">
         <div className="text-sm text-gray-600">
           Last updated: {new Date().toLocaleString()}

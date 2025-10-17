@@ -1,4 +1,3 @@
-// src/components/admin/AdminLayout.js
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -26,7 +25,7 @@ const AdminLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Sidebar */}
+      
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
         <div className="p-6">
           <h5 className="text-2xl font-bold text-gray-800">Fitness Equipment & Apparel</h5>
@@ -59,7 +58,6 @@ const AdminLayout = ({ children }) => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="ml-64">
         <div className="p-8">
           {children}

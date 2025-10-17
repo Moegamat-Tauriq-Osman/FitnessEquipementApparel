@@ -17,38 +17,32 @@ export const CartProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
   const { isAuthenticated, user } = useAuth();
 
-  // Load cart from appropriate source
   const loadCart = async () => {
     try {
       if (isAuthenticated && user) {
-        // Load from server for authenticated users
         const response = await cartAPI.get();
         const serverCart = response.data || [];
         setCart(serverCart);
         setCartCount(serverCart.length);
         
-        // Check if we have guest cart items to merge
         const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
         if (guestCart.length > 0) {
           console.log('Found guest cart items to merge:', guestCart.length);
           await mergeGuestCart(guestCart, serverCart);
         }
       } else {
-        // Load from localStorage for guests
         const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
         setCart(guestCart);
         setCartCount(guestCart.length);
       }
     } catch (error) {
       console.error('Failed to load cart:', error);
-      // Fallback to guest cart
       const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
       setCart(guestCart);
       setCartCount(guestCart.length);
     }
   };
 
-  // Merge guest cart with user cart after login
   const mergeGuestCart = async (guestCart, serverCart) => {
     try {
       let mergedItems = [...serverCart];
@@ -60,7 +54,6 @@ export const CartProvider = ({ children }) => {
         );
 
         if (existingItem) {
-          // Update quantity if item exists - with stock validation
           const availableStock = existingItem.product?.stock || 0;
           const newQuantity = Math.min(existingItem.quantity + guestItem.quantity, availableStock);
           
@@ -68,7 +61,6 @@ export const CartProvider = ({ children }) => {
             await cartAPI.update(existingItem.cartItemId, { quantity: newQuantity });
           }
         } else {
-          // Add new item to server cart - with stock validation
           const availableStock = guestItem.product?.stock || 0;
           const quantity = Math.min(guestItem.quantity, availableStock);
           
@@ -82,10 +74,8 @@ export const CartProvider = ({ children }) => {
         }
       }
 
-      // Clear guest cart after successful merge
       localStorage.removeItem('guestCart');
       
-      // Reload cart from server if we added new items
       if (hasNewItems) {
         const response = await cartAPI.get();
         setCart(response.data || []);
@@ -102,7 +92,6 @@ export const CartProvider = ({ children }) => {
     loadCart();
   }, [isAuthenticated, user]);
 
-  // Guest cart management
   const updateGuestCart = (newCart) => {
     localStorage.setItem('guestCart', JSON.stringify(newCart));
     setCart(newCart);
@@ -113,12 +102,10 @@ export const CartProvider = ({ children }) => {
     const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
     const existingItemIndex = guestCart.findIndex(item => item.productId === product.productId);
     
-    // Check available stock
     const availableStock = product.stock || 0;
     const currentQuantity = existingItemIndex > -1 ? guestCart[existingItemIndex].quantity : 0;
     const newQuantity = Math.min(currentQuantity + quantity, availableStock);
     
-    // If no stock available or quantity would be zero, return error
     if (availableStock === 0) {
       return { success: false, error: 'Product is out of stock' };
     }
@@ -154,7 +141,6 @@ export const CartProvider = ({ children }) => {
     try {
       console.log('Adding to cart - Product:', product.productId, 'Quantity:', quantity, 'Stock:', product.stock);
       
-      // Check if product has sufficient stock
       const availableStock = product.stock || 0;
       if (availableStock === 0) {
         return { 
@@ -177,7 +163,6 @@ export const CartProvider = ({ children }) => {
             quantity: quantity,
           });
           
-          // Refresh cart from server
           const response = await cartAPI.get();
           setCart(response.data || []);
           setCartCount(response.data?.length || 0);
@@ -217,7 +202,6 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Failed to remove from cart:', error);
-      // Fallback to guest cart removal
       const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
       const updatedCart = guestCart.filter(item => item.cartItemId !== cartItemId);
       updateGuestCart(updatedCart);
@@ -226,14 +210,12 @@ export const CartProvider = ({ children }) => {
 
   const updateQuantity = async (cartItemId, newQuantity) => {
     try {
-      // Find the item in cart to check stock
       const cartItem = cart.find(item => item.cartItemId === cartItemId);
       if (!cartItem) {
         console.error('Cart item not found:', cartItemId);
         return { success: false, error: 'Cart item not found' };
       }
 
-      // Validate new quantity against available stock
       const availableStock = cartItem.product?.stock || 0;
       
       if (newQuantity > availableStock) {
@@ -244,7 +226,6 @@ export const CartProvider = ({ children }) => {
       }
 
       if (newQuantity < 1) {
-        // Remove item if quantity is 0
         await removeFromCart(cartItemId);
         return { success: true };
       }
@@ -257,7 +238,6 @@ export const CartProvider = ({ children }) => {
           return { success: true };
         } catch (error) {
           console.error('API update failed, using guest cart:', error);
-          // Fallback to guest cart update
           const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
           const item = guestCart.find(item => item.cartItemId === cartItemId);
           if (item) {
@@ -309,13 +289,11 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
-  // Helper function to get max available quantity for a product
   const getMaxAvailableQuantity = (productId) => {
     const product = cart.find(item => item.productId === productId)?.product;
     return product?.stock || 0;
   };
 
-  // Helper function to check if a product is in stock
   const isProductInStock = (productId) => {
     const product = cart.find(item => item.productId === productId)?.product;
     return (product?.stock || 0) > 0;

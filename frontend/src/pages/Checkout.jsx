@@ -29,16 +29,13 @@ const Checkout = () => {
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [error, setError] = useState(null);
 
-  // Constants for fees
   const SHIPPING_FEE = 100.00;
-  const TAX_RATE = 0.1; // 10%
+  const TAX_RATE = 0.1; 
 
-  // Calculate totals
   const subtotal = getCartTotal();
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax + SHIPPING_FEE;
 
-  // Pre-fill user data if logged in
   useEffect(() => {
     if (user) {
       setFormData(prev => ({
@@ -55,7 +52,6 @@ const Checkout = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Clear error when user starts typing
     if (error) setError(null);
   };
 
@@ -78,7 +74,7 @@ const Checkout = () => {
           quantity: item.quantity,
           price: item.product.price
         })),
-        totalAmount: total, // Use the new total with shipping
+        totalAmount: total,
         shippingAddress: {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -87,19 +83,17 @@ const Checkout = () => {
           state: formData.state,
           zipCode: formData.zipCode
         },
-        shippingFee: SHIPPING_FEE, // Add shipping fee to order data
-        taxAmount: tax // Add tax amount to order data
+        shippingFee: SHIPPING_FEE, 
+        taxAmount: tax 
       };
 
       console.log('Sending order data:', orderData);
       
       const response = await ordersAPI.create(orderData);
       
-      // Clear cart immediately after successful order
       console.log('Clearing cart after successful order...');
       await clearCart();
       
-      // Then set the order success data
       setOrderSuccess({
         orderId: response.data.orderId,
         status: 'pending',
@@ -114,7 +108,6 @@ const Checkout = () => {
       console.error('Error response:', error.response);
       
       if (error.response?.status === 400) {
-        // Stock validation error or other client error
         setError(error.response.data.error || 'Checkout failed due to insufficient stock.');
       } else if (error.response?.status === 401) {
         alert('Session expired. Please login again.');
@@ -127,18 +120,15 @@ const Checkout = () => {
     }
   };
 
-  // Redirect if cart is empty and not showing success
   if (cart.length === 0 && !orderSuccess) {
     navigate('/cart');
     return null;
   }
 
-  // Show success page if order was successful
   if (orderSuccess) {
     return <OrderSuccess order={orderSuccess} />;
   }
 
-  // Show login prompt if not authenticated
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
@@ -183,7 +173,6 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
             <div className="flex items-center">
@@ -196,10 +185,8 @@ const Checkout = () => {
         )}
 
         <form onSubmit={handleSubmit} className="lg:flex gap-8">
-          {/* Checkout Form */}
           <div className="lg:w-2/3">
             <div className="space-y-8">
-              {/* Shipping Information */}
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-bold mb-4">Shipping Information</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -294,7 +281,6 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {/* Payment Information */}
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-bold mb-4">Payment Information</h2>
                 <div className="space-y-4">
@@ -361,7 +347,6 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:w-1/3 mt-8 lg:mt-0">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
               <h2 className="text-xl font-bold mb-4">Order Summary</h2>

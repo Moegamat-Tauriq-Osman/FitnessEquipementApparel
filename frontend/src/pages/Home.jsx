@@ -44,28 +44,23 @@ const Home = () => {
           categoriesAPI.getAll()
         ]);
         
-        // Get current date and date from one week ago
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
         
-        // Filter products created within the last week and sort by creation date (newest first)
         const recentProducts = productsResponse.data
           .filter(product => {
-            // Check if product has created_at date and it's within the last week
             if (!product.created_at) return false;
             
             const productDate = new Date(product.created_at);
             return productDate >= oneWeekAgo;
           })
           .sort((a, b) => {
-            // Sort by creation date, newest first
             const dateA = new Date(a.created_at || 0);
             const dateB = new Date(b.created_at || 0);
             return dateB - dateA;
           })
-          .slice(0, 8); // Take only the 8 newest products
+          .slice(0, 8);
         
-        // If we don't have enough recent products, fill with regular products
         if (recentProducts.length < 8) {
           const remainingCount = 8 - recentProducts.length;
           const otherProducts = productsResponse.data
@@ -78,7 +73,6 @@ const Home = () => {
           setFeaturedProducts(recentProducts);
         }
         
-        // Take 6 categories for display
         setCategories(categoriesResponse.data.slice(0, 6));
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -90,11 +84,10 @@ const Home = () => {
     fetchData();
   }, []);
 
-  // Auto-rotate advertisements
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAd((prev) => (prev + 1) % advertisements.length);
-    }, 5000); // Change ad every 5 seconds
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, [advertisements.length]);
@@ -117,7 +110,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
       <section className="bg-blue-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">Welcome to Fitness Equipment & Apparel</h1>
@@ -131,18 +123,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Advertisement Carousel */}
       <section className="py-8 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
-            {/* Ad Label */}
             <div className="absolute top-4 left-4 z-10">
               <span className="bg-yellow-400 text-gray-800 text-xs font-bold px-3 py-1 rounded-full">
                 Advertisments
               </span>
             </div>
             
-            {/* Navigation Arrows */}
             <button 
               onClick={prevAd}
               className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 w-10 h-10 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
@@ -161,7 +150,6 @@ const Home = () => {
               </svg>
             </button>
 
-            {/* Advertisement Content */}
             <div className={`${currentAdData.bgColor} ${currentAdData.textColor} p-8 md:p-12`}>
               <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between">
                 <div className="flex-1 text-center md:text-left mb-6 md:mb-0">
@@ -185,7 +173,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Dots Indicator */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
               {advertisements.map((_, index) => (
                 <button
@@ -199,12 +186,10 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Partner Notice */}
           
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Shop by Category</h2>
@@ -230,7 +215,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">New Arrivals</h2>
