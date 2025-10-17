@@ -1,0 +1,11 @@
+const cartSchema = `
+CREATE TABLE IF NOT EXISTS carts (
+  cartId CHAR(36) PRIMARY KEY,
+  userId CHAR(36) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE
+);
+`;
+
+module.exports = cartSchema;
